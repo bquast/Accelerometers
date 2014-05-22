@@ -65,14 +65,14 @@ rm(X_test)
 rm(type)
 
 # merge the train and test data frames
-final <- rbind(train, test)
+imported <- rbind(train, test)
 rm(train)
 rm(test)
 
 # inspect the result
-str(final)
-head(final)
-View(final)
+str(imported)
+head(imported)
+View(imported)
 
 # save the workspace
-save(final, file = 'import.RData')
+save(imported, file = 'imported.RData')
