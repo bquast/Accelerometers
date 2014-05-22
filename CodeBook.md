@@ -28,3 +28,17 @@ In this section the transformation which are applied to the data are described. 
 8. Calculate the mean for each variable and write this to a new data frame
 9. Save the new data frame as [means.RData](/means.RData)
 10. Export the data frame to a tab-delimited text file ([means.txt](/means.txt))
+
+Variables
+-------------------
+In the first data set ([final.RData](/final.RData)) the variables are:
+
+1. type, training or test
+2. activity, walking, standing, etc.
+3. all other variables are measurement from the gyroscope and accelerometer
+
+
+In the second data ([means.RData](/means.RData)/[means.txt](/means.txt)) the variables are:
+
+1. Measurement, the name of measurement, corresponding to the variables under (3.) from the first data set ([final.RData](/final.RData)).
+2. Mean, the mean value observed for each measurement
