@@ -13,6 +13,7 @@ For instructions on how to replicate the work presented here, please refer to th
 Files
 --------------
 * [CodeBook.md](/CodeBook.md), the codebook which the process
+* [run_download.R](/run_download.R), the R file which downloads the data from the internet
 * [run_analysis.R](/run_analysis.R), the R file executes the process
 * [means.txt](/means.txt), the second dataset in a tab-delimited text file
 * [means.RData](/means.RData), the second tidy dataset, in RData format
