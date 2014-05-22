@@ -29,6 +29,11 @@ getwd()
 # read the data
 features <- read.table('UCI HAR Dataset/features.txt')
 features <- t(features[2])
+features <- tolower(features)
+features <- gsub("-", "", features)
+features <- gsub(",", "", features)
+features <- gsub("\\(", "", features)
+features <- gsub("\\)", "", features)
 y_train <- read.table('UCI HAR Dataset/train/y_train.txt')
 y_test <- read.table('UCI HAR Dataset/test/y_test.txt')
 X_train <- read.table('UCI HAR Dataset/train/X_train.txt')
@@ -76,3 +81,22 @@ View(imported)
 
 # save the workspace
 save(imported, file = 'imported.RData')
+
+
+# subset based on variable names
+final <- subset(imported, 
+                select = grep(
+                  "activity|type|mean|std",
+                  ls(imported)
+                  )
+                )
+rm(imported)
+
+# inspect the results
+str(final)
+head(final)
+View(final)
+ls(final)
+
+# save the final dataset
+save(final, file = 'final.RData')
