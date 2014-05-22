@@ -119,4 +119,4 @@ View(means)
 save(means, file = 'means.Rdata' )
 
 # export the result
-write.table(means, file = 'means.txt', sep = '\t')
+write.table(means, file = 'means.txt', sep = '\t', row.names=FALSE)
