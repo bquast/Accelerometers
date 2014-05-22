@@ -13,7 +13,7 @@ file.dest <- 'accelerometer.zip'
 # execute the download
 # WARNING: this is a 61MB file, it will take time
 # DO NOT terminate the program if it is not responsive
-download.file(file.url, file.dest, method='curl')
+download.file(file.url, file.dest, method='auto')
 # NOTE: because of the size, this file is ignored by Git
 
 # cleanup
