@@ -103,9 +103,12 @@ save(final, file = 'final.RData')
 
 # create a data frame with the means
 # the first two rows contain string and are skipped
-means <- as.data.frame( sapply(final[3:length(final)], mean ) )
+means <- as.vector(sapply(final[3:length(final)], mean ))
+names <- names(final)[3:length(final)]
+means <- as.data.frame(cbind(names, means))
+rm(names)
+names(means) <- c('variable', 'mean')
 rm(final)
-names(means) <- 'mean'
 
 # inspect the result
 str(means)
@@ -114,3 +117,6 @@ View(means)
 
 # save the result
 save(means, file = 'means.Rdata' )
+
+# export the result
+write.table(means, file = 'means.csv', sep = '\t')
