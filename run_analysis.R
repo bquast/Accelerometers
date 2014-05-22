@@ -20,31 +20,61 @@ download.file(file.url, file.dest, method='curl')
 rm(file.url)
 rm(file.dest)
 
-# UNZIP the file manually
+### UNZIP the file manually ###
+# make sure the contents of the zip file
+# are places in the working directory
+# the working directory is currently
+getwd()
 
 # read the data
 features <- read.table('UCI HAR Dataset/features.txt')
 features <- t(features[2])
 y_train <- read.table('UCI HAR Dataset/train/y_train.txt')
 y_test <- read.table('UCI HAR Dataset/test/y_test.txt')
+X_train <- read.table('UCI HAR Dataset/train/X_train.txt')
+X_test <- read.table('UCI HAR Dataset/test/X_test.txt')
+
+# label the variables and observations
 labs <- c('walking', 'walking_upstairs', 'walking_downstairs', 'sitting', 'standing', 'laying')
 y_train <- as.data.frame(factor(y_train$V1, levels=c(1,2,3,4,5,6), labels=labs) )
 y_test <- as.data.frame(factor(y_test$V1, levels=c(1,2,3,4,5,6), labels=labs) )
-train <- read.table('UCI HAR Dataset/train/X_train.txt')
-test <- read.table('UCI HAR Dataset/test/X_test.txt')
-# add activity variable
-type_train <- 'train'
-type_test <- 'test'
-train <- as.data.frame( c(y_train, type_train, train) )
-test <- as.data.frame( c(y_test, test) )
-View(train)
-View(test)
+names(y_train) <- 'activity'
+names(y_test) <- 'activity'
+names(X_train) <- features
+names(X_test) <- features
+
+# add activity variable type with value train
+type <- 'train'
+names(type) <- 'type'
+
+# merge the train dataframe
+train <- as.data.frame( c(type, y_train, X_train) )
+
+# add activity variable type with value test
+type <- 'test'
+names(type) <- 'type'
+
+# merge the test dataframe
+test <- as.data.frame( c(type, y_test, X_test) )
+
+# merge the train and test data frames
+final <- rbind(train, test)
+
+# inspect the result
+str(final)
+head(final)
+View(final)
 
 # remove temporary variables
-rm(features)
-rm(labs)
+rm(train)
+rm(test)
 rm(y_train)
 rm(y_test)
+rm(X_train)
+rm(X_test)
+rm(features)
+rm(labs)
+rm(type)
 
 # save the workspace
-save.image('import.RData')
+save(final, file = 'import.RData')
