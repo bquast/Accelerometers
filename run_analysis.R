@@ -38,10 +38,12 @@ X_test <- read.table('UCI HAR Dataset/test/X_test.txt')
 labs <- c('walking', 'walking_upstairs', 'walking_downstairs', 'sitting', 'standing', 'laying')
 y_train <- as.data.frame(factor(y_train$V1, levels=c(1,2,3,4,5,6), labels=labs) )
 y_test <- as.data.frame(factor(y_test$V1, levels=c(1,2,3,4,5,6), labels=labs) )
+rm(labs)
 names(y_train) <- 'activity'
 names(y_test) <- 'activity'
 names(X_train) <- features
 names(X_test) <- features
+rm(features)
 
 # add activity variable type with value train
 type <- 'train'
@@ -49,6 +51,8 @@ names(type) <- 'type'
 
 # merge the train dataframe
 train <- as.data.frame( c(type, y_train, X_train) )
+rm(y_train)
+rm(X_train)
 
 # add activity variable type with value test
 type <- 'test'
@@ -56,25 +60,19 @@ names(type) <- 'type'
 
 # merge the test dataframe
 test <- as.data.frame( c(type, y_test, X_test) )
+rm(y_test)
+rm(X_test)
+rm(type)
 
 # merge the train and test data frames
 final <- rbind(train, test)
+rm(train)
+rm(test)
 
 # inspect the result
 str(final)
 head(final)
 View(final)
-
-# remove temporary variables
-rm(train)
-rm(test)
-rm(y_train)
-rm(y_test)
-rm(X_train)
-rm(X_test)
-rm(features)
-rm(labs)
-rm(type)
 
 # save the workspace
 save(final, file = 'import.RData')
