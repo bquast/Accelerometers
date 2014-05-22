@@ -100,3 +100,17 @@ ls(final)
 
 # save the final dataset
 save(final, file = 'final.RData')
+
+# create a data frame with the means
+# the first two rows contain string and are skipped
+means <- as.data.frame( sapply(final[3:length(final)], mean ) )
+rm(final)
+names(means) <- 'mean'
+
+# inspect the result
+str(means)
+head(means)
+View(means)
+
+# save the result
+save(means, file = 'means.Rdata' )
