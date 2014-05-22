@@ -5,6 +5,7 @@
 # Bastiaan Quast
 # bquast@gmail.com
 
+## Step 1
 # read the data
 features <- read.table('UCI HAR Dataset/features.txt')
 features <- t(features[2])
@@ -18,6 +19,8 @@ y_test <- read.table('UCI HAR Dataset/test/y_test.txt')
 X_train <- read.table('UCI HAR Dataset/train/X_train.txt')
 X_test <- read.table('UCI HAR Dataset/test/X_test.txt')
 
+
+## Step 2
 # label the variables and observations
 labs <- c('walking', 'walking_upstairs', 'walking_downstairs', 'sitting', 'standing', 'laying')
 y_train <- as.data.frame(factor(y_train$V1, levels=c(1,2,3,4,5,6), labels=labs) )
@@ -29,10 +32,12 @@ names(X_train) <- features
 names(X_test) <- features
 rm(features)
 
+## Step 3
 # add activity variable type with value train
 type <- 'train'
 names(type) <- 'type'
 
+## Step 4
 # merge the train dataframe
 train <- as.data.frame( c(type, y_train, X_train) )
 rm(y_train)
@@ -58,10 +63,11 @@ str(imported)
 head(imported)
 View(imported)
 
+## Step 5
 # save the workspace
 save(imported, file = 'imported.RData')
 
-
+## Step 6
 # subset based on variable names
 final <- subset(imported, 
                 select = grep(
@@ -77,9 +83,11 @@ head(final)
 View(final)
 ls(final)
 
+## Step 7
 # save the final dataset
 save(final, file = 'final.RData')
 
+## Step 8
 # create a data frame with the means
 # the first two rows contain string and are skipped
 means <- as.vector(sapply(final[3:length(final)], mean ))
@@ -94,8 +102,10 @@ str(means)
 head(means)
 View(means)
 
+## Step 9
 # save the result
 save(means, file = 'means.Rdata' )
 
+## Step 10
 # export the result
 write.table(means, file = 'means.txt', sep = '\t', row.names=FALSE)
