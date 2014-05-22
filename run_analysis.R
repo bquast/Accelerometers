@@ -13,7 +13,7 @@ file.dest <- 'accelerometer.zip'
 # execute the download
 # WARNING: this is a 61MB file, it will take time
 # DO NOT terminate the program if it is not responsive
-download.file(file.url, file.dest)
+download.file(file.url, file.dest, method='curl')
 # NOTE: because of the size, this file is ignored by Git
 
 # cleanup
@@ -33,8 +33,12 @@ y_test <- as.data.frame(factor(y_test$V1, levels=c(1,2,3,4,5,6), labels=labs) )
 train <- read.table('UCI HAR Dataset/train/X_train.txt')
 test <- read.table('UCI HAR Dataset/test/X_test.txt')
 # add activity variable
-train <- as.data.frame( c(y_train, train) )
+type_train <- 'train'
+type_test <- 'test'
+train <- as.data.frame( c(y_train, type_train, train) )
 test <- as.data.frame( c(y_test, test) )
+View(train)
+View(test)
 
 # remove temporary variables
 rm(features)
