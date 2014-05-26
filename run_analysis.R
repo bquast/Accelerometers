@@ -58,10 +58,6 @@ imported <- rbind(train, test)
 rm(train)
 rm(test)
 
-# inspect the result
-str(imported)
-head(imported)
-View(imported)
 
 ## Step 5
 # save the workspace
@@ -71,36 +67,28 @@ save(imported, file = 'imported.RData')
 # subset based on variable names
 final <- subset(imported, 
                 select = grep(
-                  "activity|type|mean|std",
+                  "mean|std",
                   ls(imported)
                   )
                 )
 rm(imported)
-
-# inspect the results
-str(final)
-head(final)
-View(final)
-ls(final)
+final <- subset(final, select = (!names(final) == 'activity') )
 
 ## Step 7
 # save the final dataset
 save(final, file = 'final.RData')
 
+
 ## Step 8
 # create a data frame with the means
 # the first two rows contain string and are skipped
-means <- as.vector(sapply(final[3:length(final)], mean ))
-names <- names(final)[3:length(final)]
+means <- as.vector(sapply(final, mean ))
+names <- names(final)
 means <- as.data.frame(cbind(names, means))
 rm(names)
 names(means) <- c('variable', 'mean')
 rm(final)
 
-# inspect the result
-str(means)
-head(means)
-View(means)
 
 ## Step 9
 # save the result
