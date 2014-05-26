@@ -22,7 +22,9 @@ X_test <- read.table('UCI HAR Dataset/test/X_test.txt')
 
 ## Step 2
 # label the variables and observations
-labs <- c('walking', 'walking_upstairs', 'walking_downstairs', 'sitting', 'standing', 'laying')
+labs <- read.table('UCI HAR Dataset/activity_labels.txt')
+labs <- as.character(labs$V2)
+labs <- tolower(labs)
 y_train <- as.data.frame(factor(y_train$V1, levels=c(1,2,3,4,5,6), labels=labs) )
 y_test <- as.data.frame(factor(y_test$V1, levels=c(1,2,3,4,5,6), labels=labs) )
 rm(labs)
@@ -63,6 +65,7 @@ rm(test)
 # save the workspace
 save(imported, file = 'imported.RData')
 
+
 ## Step 6
 # subset based on variable names
 final <- subset(imported, 
@@ -72,7 +75,6 @@ final <- subset(imported,
                   )
                 )
 rm(imported)
-final <- subset(final, select = (!names(final) == 'activity') )
 
 ## Step 7
 # save the final dataset
